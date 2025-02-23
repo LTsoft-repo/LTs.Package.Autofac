@@ -2,7 +2,7 @@ using Autofac;
 using JetBrains.Annotations;
 using LTs.Autofac.Extensions;
 
-namespace LTs.AutofacTest.Extensions;
+namespace LTs.Autofac.test.Extensions;
 
 public class AutofacRegisterExtensionsTests
 {
@@ -27,7 +27,7 @@ public class AutofacRegisterExtensionsTests
         var services = container.Resolve<IEnumerable<IService>>();
 
         services.Should().ContainSingle()
-            .Which.Should().BeOfType<ServiceImplementation>();
+                .Which.Should().BeOfType<ServiceImplementation>();
     }
     #endregion
 
@@ -61,7 +61,7 @@ public class AutofacRegisterExtensionsTests
 
         // Assert
         act.Should().Throw<ArgumentException>()
-            .WithMessage( "TInterface is not a generic type." );
+           .WithMessage( "TInterface is not a generic type." );
     }
     #endregion
 

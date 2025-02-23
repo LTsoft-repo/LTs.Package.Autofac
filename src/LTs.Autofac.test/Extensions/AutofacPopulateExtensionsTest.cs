@@ -2,7 +2,7 @@ using Autofac;
 using JetBrains.Annotations;
 using LTs.Autofac.Extensions;
 
-namespace LTs.AutofacTest.Extensions;
+namespace LTs.Autofac.test.Extensions;
 
 public class AutofacPopulateExtensionsTest
 {
