@@ -8,8 +8,8 @@ using Autofac.Core.Activators.Reflection;
 using Autofac.Core.Resolving.Pipeline;
 using Autofac.Extensions.DependencyInjection;
 using JetBrains.Annotations;
-using Microsoft.Extensions.DependencyInjection;
 using LTs.Autofac.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 using AutofacServiceProvider = LTs.Autofac.DependencyInjection.AutofacServiceProvider;
 using KeyedService = Autofac.Core.KeyedService;
 
@@ -101,11 +101,11 @@ public static class AutofacPopulateExtensions
         }
 
         builder.RegisterType<AutofacServiceProvider>()
-            .As<IServiceProvider>()
-            .As<IServiceProviderIsService>()
-            .As<IKeyedServiceProvider>()
-            .As<IServiceProviderIsKeyedService>()
-            .ExternallyOwned();
+               .As<IServiceProvider>()
+               .As<IServiceProviderIsService>()
+               .As<IKeyedServiceProvider>()
+               .As<IServiceProviderIsKeyedService>()
+               .ExternallyOwned();
 
         // Issue #83: IServiceScopeFactory must be a singleton and scopes must be flat, not hierarchical.
         builder
@@ -181,9 +181,9 @@ public static class AutofacPopulateExtensions
             e.ComponentRegistration.PipelineBuilding += ( _, pipeline ) =>
                 {
                     pipeline.Use( needFromKeyedServiceParameter
-                            ? KeyedServiceMiddleware.InstanceWithFromKeyedServicesParameter
-                            : KeyedServiceMiddleware.InstanceWithoutFromKeyedServicesParameter,
-                        MiddlewareInsertionMode.StartOfPhase );
+                                      ? KeyedServiceMiddleware.InstanceWithFromKeyedServicesParameter
+                                      : KeyedServiceMiddleware.InstanceWithoutFromKeyedServicesParameter,
+                                  MiddlewareInsertionMode.StartOfPhase );
                 };
         }
         catch( InvalidOperationException ex )
@@ -327,23 +327,21 @@ public static class AutofacPopulateExtensions
 
             if( descriptor is { IsKeyedService: true, KeyedImplementationFactory: not null } )
             {
-                var registration = RegistrationBuilder.ForDelegate( descriptor.ServiceType,
-                        ( context, _ ) =>
-                            {
-                                // At this point the context is always a ResolveRequestContext, which will expose the actual service type.
-                                var requestContext = (ResolveRequestContext)context;
+                var registration = RegistrationBuilder.ForDelegate(
+                                                          descriptor.ServiceType,
+                                                          ( context, _ ) =>
+                                                              {
+                                                                  // At this point the context is always a ResolveRequestContext, which will expose the actual service type.
+                                                                  var requestContext = (ResolveRequestContext)context;
+                                                                  var serviceProvider = context.Resolve<IServiceProvider>();
+                                                                  var keyedService = (KeyedService)requestContext.Service;
+                                                                  var key = keyedService.ServiceKey;
 
-                                var serviceProvider = context.Resolve<IServiceProvider>();
-
-                                var keyedService = (KeyedService)requestContext.Service;
-
-                                var key = keyedService.ServiceKey;
-
-                                return descriptor.KeyedImplementationFactory( serviceProvider, key );
-                            } )
-                    .ConfigureServiceType( descriptor )
-                    .ConfigureLifecycle( descriptor.Lifetime, lifetimeScopeTagForSingletons )
-                    .CreateRegistration();
+                                                                  return descriptor.KeyedImplementationFactory( serviceProvider, key );
+                                                              } )
+                                                      .ConfigureServiceType( descriptor )
+                                                      .ConfigureLifecycle( descriptor.Lifetime, lifetimeScopeTagForSingletons )
+                                                      .CreateRegistration();
 
                 builder.RegisterComponent( registration );
 
@@ -353,15 +351,15 @@ public static class AutofacPopulateExtensions
             if( descriptor is { IsKeyedService: false, ImplementationFactory: not null } )
             {
                 var registration = RegistrationBuilder.ForDelegate( descriptor.ServiceType,
-                        ( context, _ ) =>
-                            {
-                                var serviceProvider = context.Resolve<IServiceProvider>();
+                                                                    ( context, _ ) =>
+                                                                        {
+                                                                            var serviceProvider = context.Resolve<IServiceProvider>();
 
-                                return descriptor.ImplementationFactory( serviceProvider );
-                            } )
-                    .ConfigureServiceType( descriptor )
-                    .ConfigureLifecycle( descriptor.Lifetime, lifetimeScopeTagForSingletons )
-                    .CreateRegistration();
+                                                                            return descriptor.ImplementationFactory( serviceProvider );
+                                                                        } )
+                                                      .ConfigureServiceType( descriptor )
+                                                      .ConfigureLifecycle( descriptor.Lifetime, lifetimeScopeTagForSingletons )
+                                                      .CreateRegistration();
 
                 builder.RegisterComponent( registration );
 

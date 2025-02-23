@@ -57,8 +57,8 @@ public static class AutofacRegisterExtensions
         var genericTypeImplementation = typeImplementation.GetGenericTypeDefinition();
 
         var regBuilder = builder
-            .RegisterGeneric( genericTypeImplementation )
-            .As( genericTypeInterface );
+                         .RegisterGeneric( genericTypeImplementation )
+                         .As( genericTypeInterface );
 
         return regBuilder;
     }

@@ -29,8 +29,8 @@ public static class ServiceProviderExtensions
         if( serviceProvider is not AutofacServiceProvider autofacServiceProvider )
         {
             throw new InvalidOperationException( string.Format( CultureInfo.CurrentCulture,
-                ServiceProviderExtensionsResources.WrongProviderType,
-                serviceProvider.GetType() ) );
+                                                                ServiceProviderExtensionsResources.WrongProviderType,
+                                                                serviceProvider.GetType() ) );
         }
 
         return autofacServiceProvider.LifetimeScope;

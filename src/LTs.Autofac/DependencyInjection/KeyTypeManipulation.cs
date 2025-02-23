@@ -165,12 +165,12 @@ internal class KeyTypeManipulation
             // Some types in later frameworks have string TryParse and ReadOnlySpan<char> TryParse, 
             // so they result in an AmbiguousMatchException unless we specify.
             var parser = destinationType.GetMethod( "TryParse",
-                BindingFlags.Static | BindingFlags.Public,
-                null,
-                CallingConventions.Standard,
-                // ReSharper disable once UseCollectionExpression
-                new[] { typeof( string ), destinationType.MakeByRefType() },
-                null );
+                                                    BindingFlags.Static | BindingFlags.Public,
+                                                    null,
+                                                    CallingConventions.Standard,
+                                                    // ReSharper disable once UseCollectionExpression
+                                                    new[] { typeof( string ), destinationType.MakeByRefType() },
+                                                    null );
 
             if( parser != null )
             {
@@ -205,7 +205,7 @@ internal class KeyTypeManipulation
 
         return Activator.CreateInstance( converterType! ) as TypeConverter
                ?? throw new InvalidOperationException( string.Format( CultureInfo.CurrentCulture,
-                   KeyTypeManipulationResources.TypeConverterAttributeTypeNotConverter,
-                   converterTypeName ) );
+                                                                      KeyTypeManipulationResources.TypeConverterAttributeTypeNotConverter,
+                                                                      converterTypeName ) );
     }
 }

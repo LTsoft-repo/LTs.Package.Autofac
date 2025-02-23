@@ -67,7 +67,7 @@ public class AutofacRegisterExtensionsTests
 
     //#region ReplaceTypeWithWrapper
     //[ Fact ]
-    //public void ReplaceTypeWithWrapper_WithCorrectParameters_ReplacesTheType()
+    //public void ReplaceTypeWithWrapper_WithCorrectParameters_ReplacesTheType() 
     //{
     //    // Arrange
     //    var builder = new ContainerBuilder();

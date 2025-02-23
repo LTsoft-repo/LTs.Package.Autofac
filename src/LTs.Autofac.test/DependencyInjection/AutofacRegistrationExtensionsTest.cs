@@ -1,8 +1,8 @@
 using Autofac;
-using Microsoft.Extensions.DependencyInjection;
 using LTs.Autofac.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace LTs.AutofacTest.DependencyInjection;
+namespace LTs.Autofac.test.DependencyInjection;
 
 public class AutofacRegistrationExtensionsTest
 {
@@ -32,10 +32,10 @@ public class AutofacRegistrationExtensionsTest
         serviceProvider.Should().NotBeNull();
 
         serviceProvider.GetRequiredService<SomeConfigurationClass>()
-            .Should().NotBeNull();
+                       .Should().NotBeNull();
 
         serviceProvider.GetRequiredService<SomeServiceClass>()
-            .Should().NotBeNull();
+                       .Should().NotBeNull();
     }
     #endregion
 }

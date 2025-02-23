@@ -69,11 +69,11 @@ internal class KeyedServiceMiddleware : IResolveMiddleware
             // [ServiceKey] - indicates that the parameter value should
             // be the service key used during resolution.
             newParameters.Add( new ResolvedParameter(
-                ( p, _ ) => p.GetCustomAttributes<ServiceKeyAttribute>( true ).FirstOrDefault() is not null,
-                // If the key is an object but the constructor takes
-                // a string, we need to safely convert that. This is
-                // particularly interesting in the AnyKey scenario.
-                ( p, _ ) => KeyTypeManipulation.ChangeToCompatibleType( key, p.ParameterType, p ) ) );
+                                   ( p, _ ) => p.GetCustomAttributes<ServiceKeyAttribute>( true ).FirstOrDefault() is not null,
+                                   // If the key is an object but the constructor takes
+                                   // a string, we need to safely convert that. This is
+                                   // particularly interesting in the AnyKey scenario.
+                                   ( p, _ ) => KeyTypeManipulation.ChangeToCompatibleType( key, p.ParameterType, p ) ) );
         }
 
         if( addFromKeyedServiceParameter )

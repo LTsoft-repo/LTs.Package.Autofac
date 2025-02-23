@@ -3,8 +3,8 @@
 
 using Autofac;
 using Autofac.Builder;
-using Microsoft.Extensions.DependencyInjection;
 using LTs.Autofac.Extensions;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace LTs.Autofac.DependencyInjection;
 

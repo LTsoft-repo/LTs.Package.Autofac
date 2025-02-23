@@ -15,7 +15,7 @@ namespace LTs.Autofac.DependencyInjection;
 /// </summary>
 /// <seealso cref="IServiceProvider" />
 /// <seealso cref="ISupportRequiredService" />
-// ReSharper disable once ClassWithVirtualMembersNeverInherited.Global
+// ReSharper disable once ClassWithVirtualMembersNeverInherited.Global 
 public class AutofacServiceProvider :
     //IServiceProvider, ISupportRequiredService, IKeyedServiceProvider, IServiceProviderIsService,
     ISupportRequiredService, IKeyedServiceProvider,
@@ -129,8 +129,8 @@ public class AutofacServiceProvider :
     public bool IsKeyedService( Type serviceType, object? serviceKey )
         // Null service key means non-keyed.
         => serviceKey == null
-            ? IsService( serviceType )
-            : LifetimeScope.ComponentRegistry.IsRegistered( new KeyedService( serviceKey, serviceType ) );
+               ? IsService( serviceType )
+               : LifetimeScope.ComponentRegistry.IsRegistered( new KeyedService( serviceKey, serviceType ) );
 
     /// <inheritdoc />
     public bool IsService( Type serviceType ) => LifetimeScope.ComponentRegistry.IsRegistered( new TypedService( serviceType ) );

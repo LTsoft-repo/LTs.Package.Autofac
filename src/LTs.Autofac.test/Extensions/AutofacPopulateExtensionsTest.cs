@@ -44,6 +44,6 @@ public class AutofacPopulateExtensionsTest
     #endregion
 
     [ UsedImplicitly ]
-    // ReSharper disable once RedundantTypeDeclarationBody
+    // ReSharper disable once RedundantTypeDeclarationBody 
     private class SomeClass { }
 }
